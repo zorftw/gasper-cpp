@@ -11,6 +11,11 @@ public:
 
 	float get_health();
 	sdk::vec3d get_position();
+	void set_yaw(float yaw);
+	float get_yaw();
+	void set_pitch(float pitch);
+	float get_pitch();
+	double get_distance_to(std::shared_ptr<c_player>);
 
 	const jobject get_object()
 	{

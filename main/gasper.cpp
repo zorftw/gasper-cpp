@@ -46,19 +46,47 @@ void gasper::c_gasper::run()
 		auto local = std::make_unique<c_player>(sdk::instance->get_player(minecraft_inst));
 		auto world = std::make_unique<c_world>(sdk::instance->get_world(minecraft_inst));
 
-		/// We're ingame	
-		if (sdk::instance->get_current_screen(minecraft_inst) == nullptr)
-		{
-			if (GetTickCount64() - time > 5000)
-			{
-				auto players = world->get_players();
+		const auto is_sane = [&]() {
+			return (local->get_object() && world->get_object());
+		};
 
-				for (const auto& player : players)
+		const auto get_closest_player = [&]() {
+			double dist = (std::numeric_limits<double>::max)();
+			std::shared_ptr<c_player> target = nullptr;
+			for (const auto& player : world->get_players())
+			{
+				if (get_env()->IsSameObject(local->get_object(), player->get_object()))
+					continue;
+
+				if (!player->get_health() > 0)
+					continue;
+
+				if (local->get_distance_to(player) <= dist)
 				{
-					if (!get_env()->IsSameObject(player->get_object(), local->get_object()))
-					{
-						wrapper::show_message(std::to_string(player->get_health()));
-					}
+					dist = local->get_distance_to(player);
+					target = player;
+				}
+			}
+
+			return target;
+		};
+
+		/// We're ingame	
+		if (is_sane())
+		{
+			auto entity = get_closest_player();
+
+			if (entity)
+			{
+				auto angles = sdk::util::get_angles(local->get_position(), entity->get_position());
+
+				auto difference = sdk::util::wrap_to_180(-(local->get_yaw() - angles.first));
+
+				if (difference <= 30) {
+					auto current_yaw = local->get_yaw();
+					current_yaw += (difference / 20);
+
+					local->set_yaw(current_yaw);
 				}
 			}
 		}
@@ -94,5 +122,6 @@ void gasper::c_gasper::get_launchwrapper()
 	get_env()->DeleteLocalRef(launchwrapper_cls);
 	get_env()->DeleteLocalRef(launch_cls);
 }
+
 
 std::unique_ptr<gasper::c_gasper> gasper::instance;
