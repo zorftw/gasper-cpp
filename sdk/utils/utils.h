@@ -2,6 +2,7 @@
 
 namespace sdk {
 
+	/// Simple struct to store positions
 	struct vec3d {
 		double x, y, z;
 	};
@@ -9,6 +10,7 @@ namespace sdk {
 	using qword = unsigned long long;
 	using t_createdvms = jint(__stdcall*)(JavaVM**, jsize, jsize*);
 
+	/// NOTE: They're all inline LULW
 	namespace util {
 		inline float wrap_to_180(float value)
 		{

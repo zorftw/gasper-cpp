@@ -55,6 +55,25 @@ namespace wrapper {
 		return h_module;
 	}
 
+	/// Wrapper to get window
+	inline HWND find_window(const char* name)
+	{
+		auto res = FindWindowA(nullptr, name);
+
+		if (handle_issue(name, res))
+			std::exit(0);
+
+		return res;
+	}
+
+	inline RECT get_window_rect(const char* name)
+	{
+		RECT res;
+		GetWindowRect(find_window(name), &res);
+
+		return res;
+	}
+
 	/// Wrapper to get procedure address
 	inline void* get_proc_address(const char* name, void* handle)
 	{
@@ -72,4 +91,44 @@ namespace wrapper {
 		return GetAsyncKeyState(key);
 	}
 
+	/// Wrapper class for OpenGL context
+	struct c_context {
+		HDC m_hdc_devicectx;
+		HGLRC m_glrenderctx;
+		HGLRC m_oglrenderctx;
+	};
+
+	inline std::shared_ptr<c_context> create_gl_context()
+	{
+		std::shared_ptr<c_context> res = std::make_shared<c_context>();
+
+		PIXELFORMATDESCRIPTOR pfd =
+		{
+			sizeof(PIXELFORMATDESCRIPTOR),
+			1,
+			PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_DOUBLEBUFFER,    //Flags
+			PFD_TYPE_RGBA,        // The kind of framebuffer. RGBA or palette.
+			32,                   // Colordepth of the framebuffer.
+			0, 0, 0, 0, 0, 0,
+			0,
+			0,
+			0,
+			0, 0, 0, 0,
+			24,                   // Number of bits for the depthbuffer
+			8,                    // Number of bits for the stencilbuffer
+			0,                    // Number of Aux buffers in the framebuffer.
+			PFD_MAIN_PLANE,
+			0,
+			0, 0, 0
+		};
+
+		res->m_hdc_devicectx = GetDC(find_window(xorstr_("Minecraft 1.7.10")));
+
+		int pixel_format = ChoosePixelFormat(res->m_hdc_devicectx, &pfd);
+		SetPixelFormat(res->m_hdc_devicectx, pixel_format, &pfd);
+
+		res->m_oglrenderctx = wglGetCurrentContext();
+		res->m_glrenderctx = wglCreateContext(res->m_hdc_devicectx);
+		return res;
+	}
 }
