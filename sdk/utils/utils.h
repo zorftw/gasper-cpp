@@ -26,6 +26,11 @@ namespace sdk {
 			return x * 180.f / M_PI;
 		}
 
+		inline float deg_to_radiants(float r)
+		{
+			return r * M_PI / 180;
+		}
+
 		inline std::pair<float, float> get_angles(sdk::vec3d pos, sdk::vec3d pos1)
 		{
 			double d_x = pos1.x - pos.x;

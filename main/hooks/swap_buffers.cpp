@@ -1,5 +1,9 @@
 #include "../gasper.h"
 
+/// Include cheats for settings
+#include "../cheats/impl/headers/reach.h"
+#include "../cheats/impl/headers/aimbot.h"
+
 /// Context
 std::shared_ptr<wrapper::c_context> gasper::hooks::gl_context = nullptr;
 
@@ -43,6 +47,9 @@ int __stdcall gasper::hooks::swap_buffers_hk(HDC hdc) {
 		ImGui::Begin(xorstr_("Gasper C++"), nullptr, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_AlwaysAutoResize);
 
 		ImGui::Text(xorstr_("Hello, World!"));
+		ImGui::Checkbox(xorstr_("Reach enabled"), &reach::m_enabled);
+		ImGui::SliderFloat(xorstr_("Distance"), &reach::m_reach, 0.0f, 1.5f, xorstr_("%.1f"));
+		ImGui::Checkbox(xorstr_("AimAssist enabled"), &aimbot::m_enabled);
 
 		ImGui::End();
 

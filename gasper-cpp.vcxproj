@@ -138,22 +138,64 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="entry\main.cpp" />
+    <ClCompile Include="main\cheats\cheat.cpp" />
+    <ClCompile Include="main\cheats\impl\src\aimbot.cpp" />
+    <ClCompile Include="main\cheats\impl\src\reach.cpp" />
     <ClCompile Include="main\gasper.cpp" />
+    <ClCompile Include="main\hooks\swap_buffers.cpp" />
+    <ClCompile Include="main\hooks\wndproc.cpp" />
+    <ClCompile Include="sdk\hook\buffer.c" />
+    <ClCompile Include="sdk\hook\hde\hde32.c" />
+    <ClCompile Include="sdk\hook\hde\hde64.c" />
+    <ClCompile Include="sdk\hook\hook.c" />
+    <ClCompile Include="sdk\hook\trampoline.c" />
+    <ClCompile Include="sdk\libraries\imgui\imgui.cpp" />
+    <ClCompile Include="sdk\libraries\imgui\imgui_draw.cpp" />
+    <ClCompile Include="sdk\libraries\imgui\imgui_impl_opengl2.cpp" />
+    <ClCompile Include="sdk\libraries\imgui\imgui_impl_win32.cpp" />
+    <ClCompile Include="sdk\libraries\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="sdk\minecraft\axisaligned\axisalignedbb.cpp" />
     <ClCompile Include="sdk\minecraft\minecraft.cpp" />
     <ClCompile Include="sdk\minecraft\player\player.cpp" />
     <ClCompile Include="sdk\minecraft\world\world.cpp" />
+    <ClCompile Include="sdk\utils\timer\timer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="main\cheats\cheat.h" />
+    <ClInclude Include="main\cheats\impl\headers\aimbot.h" />
+    <ClInclude Include="main\cheats\impl\headers\impl.h" />
+    <ClInclude Include="main\cheats\impl\headers\reach.h" />
     <ClInclude Include="main\gasper.h" />
+    <ClInclude Include="sdk\hook\buffer.h" />
+    <ClInclude Include="sdk\hook\hde\hde32.h" />
+    <ClInclude Include="sdk\hook\hde\hde64.h" />
+    <ClInclude Include="sdk\hook\hde\pstdint.h" />
+    <ClInclude Include="sdk\hook\hde\table32.h" />
+    <ClInclude Include="sdk\hook\hde\table64.h" />
+    <ClInclude Include="sdk\hook\MinHook.h" />
+    <ClInclude Include="sdk\hook\trampoline.h" />
     <ClInclude Include="sdk\includes.h" />
+    <ClInclude Include="sdk\libraries\imgui\imconfig.h" />
+    <ClInclude Include="sdk\libraries\imgui\imgui.h" />
+    <ClInclude Include="sdk\libraries\imgui\imgui_impl_opengl2.h" />
+    <ClInclude Include="sdk\libraries\imgui\imgui_impl_win32.h" />
+    <ClInclude Include="sdk\libraries\imgui\imgui_internal.h" />
+    <ClInclude Include="sdk\libraries\imgui\imstb_rectpack.h" />
+    <ClInclude Include="sdk\libraries\imgui\imstb_textedit.h" />
+    <ClInclude Include="sdk\libraries\imgui\imstb_truetype.h" />
     <ClInclude Include="sdk\libraries\xorstr.h" />
+    <ClInclude Include="sdk\mapper\mapper.h" />
+    <ClInclude Include="sdk\minecraft\axisaligned\axisalignedbb.h" />
     <ClInclude Include="sdk\minecraft\minecraft.h" />
     <ClInclude Include="sdk\minecraft\player\player.h" />
     <ClInclude Include="sdk\minecraft\world\world.h" />
+    <ClInclude Include="sdk\utils\timer\timer.h" />
+    <ClInclude Include="sdk\utils\utils.h" />
     <ClInclude Include="sdk\wrapper\wrapper.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

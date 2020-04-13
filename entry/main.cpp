@@ -22,6 +22,8 @@ int __stdcall DllMain(
 
 void start_gasper_thread() {
 
+    std::this_thread::sleep_for(std::chrono::seconds(5));
+
     /// "Bro you know when the object is destroyed" true.
     gasper::instance = std::make_unique<gasper::c_gasper>();
 
@@ -34,7 +36,7 @@ void start_gasper_thread() {
 
     /// Wait a second actually
     std::this_thread::sleep_for(std::chrono::seconds(1));
-
+ 
     /// Ok now dispose of our shit
     gasper::instance->dispose();
 }

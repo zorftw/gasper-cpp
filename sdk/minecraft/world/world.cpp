@@ -14,7 +14,12 @@ c_world::~c_world()
 
 std::vector<std::shared_ptr<c_player>> c_world::get_players()
 {
-	jfieldID player_entities = gasper::instance->get_env()->GetFieldID(gasper::instance->get_env()->GetObjectClass(world_obj), xorstr_("field_73010_i"), xorstr_("Ljava/util/List;"));
+	jfieldID player_entities; 
+	if (!BADLION_CLIENT)
+		player_entities = gasper::instance->get_env()->GetFieldID(gasper::instance->get_env()->GetObjectClass(world_obj), xorstr_("field_73010_i"), xorstr_("Ljava/util/List;"));
+	else
+		player_entities = gasper::instance->get_env()->GetFieldID(gasper::instance->get_env()->GetObjectClass(world_obj), xorstr_("j"), xorstr_("Ljava/util/List;"));
+
 	jclass list_cls = gasper::instance->get_env()->FindClass(xorstr_("java/util/List"));
 	jmethodID to_array_md = gasper::instance->get_env()->GetMethodID(list_cls, xorstr_("toArray"), xorstr_("()[Ljava/lang/Object;"));
 

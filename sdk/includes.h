@@ -12,6 +12,7 @@
 #include <thread>
 #include <string>
 
+#include <unordered_map>
 #include <mutex>
 #include <functional>
 
@@ -23,6 +24,8 @@
 #ifndef M_PI
 #define M_PI 3.14159265358979323846
 #endif
+
+inline constexpr auto BADLION_CLIENT = true;
 
 #include <gl/GL.h>
 
@@ -36,3 +39,5 @@
 #include "libraries/xorstr.h"
 #include "wrapper/wrapper.h"
 #include "utils/utils.h"
+#include "mapper/mapper.h"
+#include "utils/timer/timer.h"

@@ -2,6 +2,8 @@
 
 #include "../minecraft.h"
 
+class c_axisalignedbb;
+
 class c_player {
 private:
 	jobject player_obj;
@@ -15,6 +17,7 @@ public:
 	float get_yaw();
 	void set_pitch(float pitch);
 	float get_pitch();
+	std::shared_ptr<c_axisalignedbb> get_bounding_box();
 	double get_distance_to(std::shared_ptr<c_player>);
 
 	const jobject get_object()

@@ -42,15 +42,15 @@ namespace gasper {
 
 		/// Inline function to get class
 		inline jclass find_class(const char* name) {
-			jstring jname = get_env()->NewStringUTF(name);
+				jstring jname = get_env()->NewStringUTF(name);
 
-			jclass cls = reinterpret_cast<jclass>(get_env()->CallObjectMethod(classloader_obj, findclass_md, jname));
+				jclass cls = reinterpret_cast<jclass>(get_env()->CallObjectMethod(classloader_obj, findclass_md, jname));
 
-			get_env()->DeleteLocalRef(jname);
+				get_env()->DeleteLocalRef(jname);
 
-			wrapper::handle_issue(name, cls);
+				wrapper::handle_issue(name, cls);
 
-			return cls;
+				return cls;
 		}
 	};
 
