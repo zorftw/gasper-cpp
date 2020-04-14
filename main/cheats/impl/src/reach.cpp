@@ -10,7 +10,7 @@ void reach::invoke(std::shared_ptr<c_context> ctx)
 		return (ctx->local->get_object() && ctx->world->get_object());
 	};
 	/// Santity check and only run 20 times a second because that's what MC does as well, no need to overkill atm
-	if (is_sane() && timer->has_passed(50) && reach::m_enabled)
+	if (is_sane() && timer->has_passed(25) && reach::m_enabled)
 	{
 		auto distance = reach::m_reach;
 
@@ -54,10 +54,9 @@ void reach::invoke(std::shared_ptr<c_context> ctx)
 			z -= (sin * distance);
 
 			/// At this point what we've done, we've calculated the position of the entity where he would be if we moved him, considering we can't set his position without
-			/// Glitching out, we'll have to move the bounding box instead luckily for us, minecraft does this for us :)
-			/// The values we get is entity_width = 0.6f and entity_height = 1.8f
+			/// glitching out, we'll have to move the bounding box instead luckily for us, minecraft explains what we need to do for us :)
+			/// the values we get is entity_width = 0.6f and entity_height = 1.8f but we'll keep the y-axis of the boundingbox the same
 			auto entity_width = 0.6f;
-			auto entity_height = 1.8f;
 
 			/// Width from left to middle
 			auto bb_width = entity_width / 2.0f;
@@ -77,6 +76,7 @@ void reach::invoke(std::shared_ptr<c_context> ctx)
 			bb.maxZ = z + bb_width;
 
 			/// Now set the entity's BB
+			/// NOTE: There's no reason to allocate a new boundingbox, this will save us processing power
 			entity->get_bounding_box()->set_native_boundingbox(bb);
 		}
 	}

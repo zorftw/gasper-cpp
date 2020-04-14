@@ -8,6 +8,8 @@
 
 #include "cheats/impl/headers/aimbot.h"
 #include "cheats/impl/headers/reach.h"
+#include "cheats/impl/headers/strafe.h"
+
 
 jvmtiEnv* jvmti_env;
 
@@ -56,6 +58,7 @@ void gasper::c_gasper::run()
 	/// Register all our cheats
 	cheats::instance->register_function(aimbot::invoke);
 	cheats::instance->register_function(reach::invoke);
+	cheats::instance->register_function(strafe::invoke);
 
 	//Give it a console for debugging purposes
 	AllocConsole();
@@ -91,7 +94,7 @@ void gasper::c_gasper::run()
 		auto local = std::make_shared<c_player>(sdk::instance->get_player(minecraft_inst));
 		auto world = std::make_shared<c_world>(sdk::instance->get_world(minecraft_inst));
 
-		cheats::instance->invoke(std::make_shared<c_context>(local, world));
+		cheats::instance->invoke(std::make_shared<c_context>(local, world, !sdk::instance->get_current_screen(minecraft_inst), false));
 
 		/// Delete the reference
 		get_env()->DeleteLocalRef(minecraft_inst);

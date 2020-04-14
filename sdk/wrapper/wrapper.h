@@ -29,7 +29,7 @@ namespace wrapper {
 				show_message(xorstr_("Issue formatting issue_handler wrapper::#handle_issue#26"));
 
 			/// Allocate buffer with lenght of message 
-			auto buffer = std::make_unique<char[]>(128);
+			auto buffer = std::make_unique<char[]>(len);
 
 			/// Format the message to buffer
 			std::snprintf(buffer.get(), len, s_formatting, name, ptr);

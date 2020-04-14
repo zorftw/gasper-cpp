@@ -81,6 +81,9 @@
     <ClCompile Include="sdk\utils\timer\timer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="main\cheats\impl\src\strafe.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sdk\includes.h">
@@ -174,6 +177,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="sdk\utils\timer\timer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="main\cheats\impl\headers\strafe.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

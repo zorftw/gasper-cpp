@@ -146,6 +146,7 @@
     <ClCompile Include="main\cheats\cheat.cpp" />
     <ClCompile Include="main\cheats\impl\src\aimbot.cpp" />
     <ClCompile Include="main\cheats\impl\src\reach.cpp" />
+    <ClCompile Include="main\cheats\impl\src\strafe.cpp" />
     <ClCompile Include="main\gasper.cpp" />
     <ClCompile Include="main\hooks\swap_buffers.cpp" />
     <ClCompile Include="main\hooks\wndproc.cpp" />
@@ -170,6 +171,7 @@
     <ClInclude Include="main\cheats\impl\headers\aimbot.h" />
     <ClInclude Include="main\cheats\impl\headers\impl.h" />
     <ClInclude Include="main\cheats\impl\headers\reach.h" />
+    <ClInclude Include="main\cheats\impl\headers\strafe.h" />
     <ClInclude Include="main\gasper.h" />
     <ClInclude Include="sdk\hook\buffer.h" />
     <ClInclude Include="sdk\hook\hde\hde32.h" />

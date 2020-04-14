@@ -30,6 +30,10 @@ void aimbot::invoke(std::shared_ptr<c_context> ctx)
 			if (!player->get_health() > 0)
 				continue;
 
+			/// Not invisible?
+			if (player->is_invisible())
+				continue;
+
 			/// Basic stuff
 			if (ctx->local->get_distance_to(player) <= dist)
 			{
@@ -41,7 +45,7 @@ void aimbot::invoke(std::shared_ptr<c_context> ctx)
 		return target;
 	};
 
-	if (!is_sane() || !aimbot::m_enabled)
+	if (!is_sane() || !aimbot::m_enabled || !ctx->ingame)
 		return;
 
 	auto target = get_closest_player();
@@ -53,9 +57,9 @@ void aimbot::invoke(std::shared_ptr<c_context> ctx)
 		auto difference = sdk::util::wrap_to_180(-(ctx->local->get_yaw() - angles.first));
 
 		/// difference might be negative so yknow
-		if (abs(difference) <= 30) {
+		if (abs(difference) <= aimbot::m_fov) {
 			auto current_yaw = ctx->local->get_yaw();
-			current_yaw += (difference / 20);
+			current_yaw += (difference / (20 / aimbot::m_speed));
 
 			ctx->local->set_yaw(current_yaw);
 		}

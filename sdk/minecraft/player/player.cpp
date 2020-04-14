@@ -13,6 +13,65 @@ c_player::~c_player()
 	gasper::instance->get_env()->DeleteLocalRef(player_obj);
 }
 
+bool c_player::is_invisible()
+{
+	jmethodID invisible_md = gasper::instance->get_env()->GetMethodID(gasper::instance->get_env()->GetObjectClass(player_obj), BADLION_CLIENT ? xorstr_("ax") : xorstr_("func_82150_aj"), xorstr_("()Z"));
+
+	return gasper::instance->get_env()->CallBooleanMethod(player_obj, invisible_md);
+}
+
+float c_player::get_hurt_time()
+{
+	jfieldID hurttime_fid = gasper::instance->get_env()->GetFieldID(gasper::instance->get_env()->GetObjectClass(player_obj), BADLION_CLIENT ? xorstr_("au") : xorstr_("field_70737_aN"), xorstr_("F"));
+
+	return gasper::instance->get_env()->GetFloatField(player_obj, hurttime_fid);
+}
+
+float c_player::get_moveforward()
+{
+	jfieldID hurttime_fid = gasper::instance->get_env()->GetFieldID(gasper::instance->get_env()->GetObjectClass(player_obj), BADLION_CLIENT ? xorstr_("ba") : xorstr_("field_70701_bs"), xorstr_("F"));
+
+	return gasper::instance->get_env()->GetFloatField(player_obj, hurttime_fid);
+}
+
+float c_player::get_movestrafe()
+{
+	jfieldID hurttime_fid = gasper::instance->get_env()->GetFieldID(gasper::instance->get_env()->GetObjectClass(player_obj), BADLION_CLIENT ? xorstr_("aZ") : xorstr_("field_70702_br"), xorstr_("F"));
+
+	return gasper::instance->get_env()->GetFloatField(player_obj, hurttime_fid);
+}
+
+sdk::vec3d c_player::get_motion_vector()
+{
+	auto mox_fid = gasper::instance->get_env()->GetFieldID(gasper::instance->get_env()->GetObjectClass(player_obj), BADLION_CLIENT ? xorstr_("v") : xorstr_("field_70159_w"), xorstr_("D"));
+	auto moy_fid = gasper::instance->get_env()->GetFieldID(gasper::instance->get_env()->GetObjectClass(player_obj), BADLION_CLIENT ? xorstr_("w") : xorstr_("field_70181_x"), xorstr_("D"));
+	auto moz_fid = gasper::instance->get_env()->GetFieldID(gasper::instance->get_env()->GetObjectClass(player_obj), BADLION_CLIENT ? xorstr_("x") : xorstr_("field_70179_y"), xorstr_("D"));
+
+	return sdk::vec3d{
+		gasper::instance->get_env()->GetDoubleField(player_obj, mox_fid),
+		gasper::instance->get_env()->GetDoubleField(player_obj, moy_fid),
+		gasper::instance->get_env()->GetDoubleField(player_obj, moz_fid)
+	};
+}
+
+void c_player::get_motion_vector(sdk::vec3d vec)
+{
+	auto mox_fid = gasper::instance->get_env()->GetFieldID(gasper::instance->get_env()->GetObjectClass(player_obj), BADLION_CLIENT ? xorstr_("v") : xorstr_("field_70159_w"), xorstr_("D"));
+	auto moy_fid = gasper::instance->get_env()->GetFieldID(gasper::instance->get_env()->GetObjectClass(player_obj), BADLION_CLIENT ? xorstr_("w") : xorstr_("field_70181_x"), xorstr_("D"));
+	auto moz_fid = gasper::instance->get_env()->GetFieldID(gasper::instance->get_env()->GetObjectClass(player_obj), BADLION_CLIENT ? xorstr_("x") : xorstr_("field_70179_y"), xorstr_("D"));
+
+	gasper::instance->get_env()->SetDoubleField(player_obj, mox_fid, vec.x);
+	gasper::instance->get_env()->SetDoubleField(player_obj, moy_fid, vec.y);
+	gasper::instance->get_env()->SetDoubleField(player_obj, moz_fid, vec.z);
+}
+
+bool c_player::is_on_ground()
+{
+	jfieldID onground_fid = gasper::instance->get_env()->GetFieldID(gasper::instance->get_env()->GetObjectClass(player_obj), BADLION_CLIENT ? xorstr_("C") : xorstr_("field_70122_E"), xorstr_("Z"));
+
+	return gasper::instance->get_env()->GetBooleanField(player_obj, onground_fid);
+}
+
 float c_player::get_health()
 {
 	jmethodID get_health_mid;
